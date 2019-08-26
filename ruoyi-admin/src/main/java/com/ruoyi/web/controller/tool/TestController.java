@@ -55,7 +55,7 @@ public class TestController extends BaseController
         }
         else
         {
-            return error("用户不存在");
+            return fail("用户不存在");
         }
     }
 

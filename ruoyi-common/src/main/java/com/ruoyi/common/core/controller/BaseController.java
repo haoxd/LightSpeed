@@ -155,6 +155,14 @@ public class BaseController
     }
 
     /**
+     * 返回失败消息
+     */
+    public AjaxResult fail(String message)
+    {
+        return AjaxResult.fail(message);
+    }
+
+    /**
      * 返回错误码消息
      */
     public AjaxResult error(Type type, String message)

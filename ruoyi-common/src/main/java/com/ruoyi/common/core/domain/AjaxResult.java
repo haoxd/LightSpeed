@@ -39,6 +39,8 @@ public class AjaxResult extends HashMap<String, Object> {
          * 警告
          */
         WARN(301),
+        
+        FAIL(-1),
         /**
          * 错误
          */
@@ -163,6 +165,16 @@ public class AjaxResult extends HashMap<String, Object> {
      */
     public static AjaxResult error(String msg) {
         return AjaxResult.error(msg, null);
+    }
+    
+    /**
+     * 返回错误消息
+     *
+     * @param msg 返回内容
+     * @return 警告消息
+     */
+    public static AjaxResult fail(String msg) {
+        return new AjaxResult(Type.FAIL,msg);
     }
 
     /**
