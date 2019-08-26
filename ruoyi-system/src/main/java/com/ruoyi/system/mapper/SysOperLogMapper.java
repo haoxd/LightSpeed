@@ -1,6 +1,9 @@
 package com.ruoyi.system.mapper;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
 import com.ruoyi.system.domain.SysOperLog;
 
 /**
@@ -8,6 +11,7 @@ import com.ruoyi.system.domain.SysOperLog;
  * 
  * @author ruoyi
  */
+@Mapper
 public interface SysOperLogMapper
 {
     /**
@@ -15,7 +19,7 @@ public interface SysOperLogMapper
      * 
      * @param operLog 操作日志对象
      */
-    public void insertOperlog(SysOperLog operLog);
+     void insertOperlog(SysOperLog operLog);
 
     /**
      * 查询系统操作日志集合
@@ -23,7 +27,7 @@ public interface SysOperLogMapper
      * @param operLog 操作日志对象
      * @return 操作日志集合
      */
-    public List<SysOperLog> selectOperLogList(SysOperLog operLog);
+     List<SysOperLog> selectOperLogList(SysOperLog operLog);
     
     /**
      * 批量删除系统操作日志
@@ -31,7 +35,7 @@ public interface SysOperLogMapper
      * @param ids 需要删除的数据
      * @return 结果
      */
-    public int deleteOperLogByIds(String[] ids);
+     int deleteOperLogByIds(String[] ids);
     
     /**
      * 查询操作日志详细
@@ -39,10 +43,10 @@ public interface SysOperLogMapper
      * @param operId 操作ID
      * @return 操作日志对象
      */
-    public SysOperLog selectOperLogById(Long operId);
+     SysOperLog selectOperLogById(Long operId);
     
     /**
      * 清空操作日志
      */
-    public void cleanOperLog();
+     void cleanOperLog();
 }

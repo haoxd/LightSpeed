@@ -1,10 +1,12 @@
 package com.ruoyi.common.config;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.YamlUtil;
 
@@ -27,7 +29,7 @@ public class Global
     /**
      * 保存全局属性值
      */
-    private static Map<String, String> map = new HashMap<String, String>();
+    private static Map<String, String> map = new ConcurrentHashMap<>();
 
     private Global()
     {

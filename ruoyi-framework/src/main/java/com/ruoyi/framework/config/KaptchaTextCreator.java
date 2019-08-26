@@ -3,6 +3,7 @@ package com.ruoyi.framework.config;
 import java.security.SecureRandom;
 import java.util.Random;
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
+import com.ruoyi.common.utils.StringUtils;
 
 /**
  * 验证码文本生成器
@@ -11,7 +12,9 @@ import com.google.code.kaptcha.text.impl.DefaultTextCreator;
  */
 public class KaptchaTextCreator extends DefaultTextCreator
 {
-    private static final String[] CNUMBERS = "0,1,2,3,4,5,6,7,8,9,10".split(",");
+    private static final String[] CNUMBERS = StringUtils.split("0,1,2,3,4,5,6,7,8,9,10",",");
+
+
 
     @Override
     public String getText()

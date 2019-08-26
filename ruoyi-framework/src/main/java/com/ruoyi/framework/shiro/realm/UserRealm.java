@@ -51,36 +51,6 @@ public class UserRealm extends AuthorizingRealm
     private SysLoginService loginService;
 
     /**
-     * 授权
-     */
-    @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0)
-    {
-        SysUser user = ShiroUtils.getSysUser();
-        // 角色列表
-        Set<String> roles = new HashSet<String>();
-        // 功能列表
-        Set<String> menus = new HashSet<String>();
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        // 管理员拥有所有权限
-        if (user.isAdmin())
-        {
-            info.addRole("admin");
-            info.addStringPermission("*:*:*");
-        }
-        else
-        {
-            roles = roleService.selectRoleKeys(user.getUserId());
-            menus = menuService.selectPermsByUserId(user.getUserId());
-            // 角色加入AuthorizationInfo认证对象
-            info.setRoles(roles);
-            // 权限加入AuthorizationInfo认证对象
-            info.setStringPermissions(menus);
-        }
-        return info;
-    }
-
-    /**
      * 登录认证
      */
     @Override
@@ -125,12 +95,44 @@ public class UserRealm extends AuthorizingRealm
         }
         catch (Exception e)
         {
-            log.info("对用户[" + username + "]进行登录验证..验证未通过{}", e.getMessage());
+            log.error("对用户[" + username + "]进行登录验证..验证未通过{}"+ e.getMessage(),e);
             throw new AuthenticationException(e.getMessage(), e);
         }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
         return info;
     }
+
+
+    /**
+     * 授权
+     */
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0)
+    {
+        SysUser user = ShiroUtils.getSysUser();
+        // 角色列表
+        Set<String> roles = new HashSet<String>();
+        // 功能列表
+        Set<String> menus = new HashSet<String>();
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        // 管理员拥有所有权限
+        if (user.isAdmin())
+        {
+            info.addRole("admin");
+            info.addStringPermission("*:*:*");
+        }
+        else
+        {
+            roles = roleService.selectRoleKeys(user.getUserId());
+            menus = menuService.selectPermsByUserId(user.getUserId());
+            // 角色加入AuthorizationInfo认证对象
+            info.setRoles(roles);
+            // 权限加入AuthorizationInfo认证对象
+            info.setStringPermissions(menus);
+        }
+        return info;
+    }
+
 
     /**
      * 清理缓存权限

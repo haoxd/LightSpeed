@@ -1,16 +1,18 @@
 package com.ruoyi.system.domain;
 
 import java.util.Date;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.ruoyi.common.core.domain.BaseEntity;
 import com.ruoyi.common.enums.OnlineStatus;
+
+import lombok.ToString;
 
 /**
  * 当前在线会话 sys_user_online
  * 
  * @author ruoyi
  */
+@ToString
 public class SysUserOnline extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
@@ -158,20 +160,5 @@ public class SysUserOnline extends BaseEntity
         this.status = status;
     }
     
-	@Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("sessionId", getSessionId())
-            .append("loginName", getLoginName())
-            .append("deptName", getDeptName())
-            .append("ipaddr", getIpaddr())
-            .append("loginLocation", getLoginLocation())
-            .append("browser", getBrowser())
-            .append("os", getOs())
-            .append("status", getStatus())
-            .append("startTimestamp", getStartTimestamp())
-            .append("lastAccessTime", getLastAccessTime())
-            .append("expireTime", getExpireTime())
-            .toString();
-    }
+	
 }

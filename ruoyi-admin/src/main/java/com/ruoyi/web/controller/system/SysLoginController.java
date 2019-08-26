@@ -17,7 +17,7 @@ import com.ruoyi.common.utils.StringUtils;
 
 /**
  * 登录验证
- * 
+ *
  * @author ruoyi
  */
 @Controller
@@ -49,11 +49,7 @@ public class SysLoginController extends BaseController
         catch (AuthenticationException e)
         {
             String msg = "用户或密码错误";
-            if (StringUtils.isNotEmpty(e.getMessage()))
-            {
-                msg = e.getMessage();
-            }
-            return error(msg);
+            return error(StringUtils.isNotEmpty(e.getMessage())?e.getMessage():msg);
         }
     }
 
