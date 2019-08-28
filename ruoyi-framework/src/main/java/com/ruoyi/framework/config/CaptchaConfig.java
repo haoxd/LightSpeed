@@ -15,6 +15,10 @@ import static com.google.code.kaptcha.Constants.*;
 @Configuration
 public class CaptchaConfig
 {
+    /**
+     * 字符配置实现
+     * @return
+     */
     @Bean(name = "captchaProducer")
     public DefaultKaptcha getKaptchaBean()
     {
@@ -45,13 +49,17 @@ public class CaptchaConfig
         return defaultKaptcha;
     }
 
+    /**
+     * 计算题配置实现
+     * @return
+     */
     @Bean(name = "captchaProducerMath")
     public DefaultKaptcha getKaptchaBeanMath()
     {
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
         Properties properties = new Properties();
         // 是否有边框 默认为true 我们可以自己设置yes，no
-        properties.setProperty(KAPTCHA_BORDER, "yes");
+        properties.setProperty(KAPTCHA_BORDER, "no");
         // 边框颜色 默认为Color.BLACK
         properties.setProperty(KAPTCHA_BORDER_COLOR, "105,179,90");
         // 验证码文本字符颜色 默认为Color.BLACK

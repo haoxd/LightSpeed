@@ -39,7 +39,7 @@ public class OnlineSessionFilter extends AccessControlFilter
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
             throws Exception
     {
-        Subject subject = getSubject(request, response);
+        Subject subject = super.getSubject(request, response);
         if (subject == null || subject.getSession() == null)
         {
             return true;

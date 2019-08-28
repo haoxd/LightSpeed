@@ -8,6 +8,8 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import com.ruoyi.common.constant.Constants;
 import com.ruoyi.common.constant.ShiroConstants;
 import com.ruoyi.common.exception.user.UserPasswordNotMatchException;
@@ -23,64 +25,56 @@ import com.ruoyi.system.domain.SysUser;
  * @author ruoyi
  */
 @Component
-public class SysPasswordService
-{
-    @Autowired
-    private CacheManager cacheManager;
 
-    private Cache<String, AtomicInteger> loginRecordCache;
+public class SysPasswordService {
+	@Autowired
+	private CacheManager cacheManager;
 
-    @Value(value = "${user.password.maxRetryCount}")
-    private String maxRetryCount;
+	private Cache<String, AtomicInteger> loginRecordCache;
 
-    @PostConstruct
-    public void init()
-    {
-        loginRecordCache = cacheManager.getCache(ShiroConstants.LOGINRECORDCACHE);
-    }
+	@Value(value = "${user.password.maxRetryCount}")
+	private String maxRetryCount;
 
-    public void validate(SysUser user, String password)
-    {
-        String loginName = user.getLoginName();
+	@PostConstruct
+	public void init() {
+		loginRecordCache = cacheManager.getCache(ShiroConstants.LOGINRECORDCACHE);
+	}
 
-        AtomicInteger retryCount = loginRecordCache.get(loginName);
+	public void validate(SysUser user, String password) {
+		String loginName = user.getLoginName();
 
-        if (retryCount == null)
-        {
-            retryCount = new AtomicInteger(0);
-            loginRecordCache.put(loginName, retryCount);
-        }
-        if (retryCount.incrementAndGet() > Integer.valueOf(maxRetryCount).intValue())
-        {
-            AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.LOGIN_FAIL, MessageUtils.message("user.password.retry.limit.exceed", maxRetryCount)));
-            throw new UserPasswordRetryLimitExceedException(Integer.valueOf(maxRetryCount).intValue());
-        }
+		AtomicInteger retryCount = loginRecordCache.get(loginName);
 
-        if (!matches(user, password))
-        {
-            AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.LOGIN_FAIL, MessageUtils.message("user.password.retry.limit.count", retryCount)));
-            loginRecordCache.put(loginName, retryCount);
-            throw new UserPasswordNotMatchException();
-        }
-        else
-        {
-            clearLoginRecordCache(loginName);
-        }
-    }
+		if (retryCount == null) {
+			retryCount = new AtomicInteger(0);
+			loginRecordCache.put(loginName, retryCount);
+		}
+		if (retryCount.incrementAndGet() > Integer.valueOf(maxRetryCount).intValue()) {
+			AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.LOGIN_FAIL,
+					MessageUtils.message("user.password.retry.limit.exceed", maxRetryCount)));
+			throw new UserPasswordRetryLimitExceedException(Integer.valueOf(maxRetryCount).intValue());
+		}
 
-    public boolean matches(SysUser user, String newPassword)
-    {
-        return user.getPassword().equals(encryptPassword(user.getLoginName(), newPassword, user.getSalt()));
-    }
+		if (!matches(user, password)) {
+			AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.LOGIN_FAIL,
+					MessageUtils.message("user.password.retry.limit.count", retryCount)));
+			loginRecordCache.put(loginName, retryCount);
+			throw new UserPasswordNotMatchException();
+		} else {
+			clearLoginRecordCache(loginName);
+		}
+	}
 
-    public void clearLoginRecordCache(String username)
-    {
-        loginRecordCache.remove(username);
-    }
+	public boolean matches(SysUser user, String newPassword) {
+		return user.getPassword().equals(encryptPassword(user.getLoginName(), newPassword, user.getSalt()));
+	}
 
-    public String encryptPassword(String username, String password, String salt)
-    {
-        return new Md5Hash(username + password + salt).toHex().toString();
-    }
+	public void clearLoginRecordCache(String username) {
+		loginRecordCache.remove(username);
+	}
+
+	public String encryptPassword(String username, String password, String salt) {
+		return new Md5Hash(username + password + salt).toHex().toString();
+	}
 
 }

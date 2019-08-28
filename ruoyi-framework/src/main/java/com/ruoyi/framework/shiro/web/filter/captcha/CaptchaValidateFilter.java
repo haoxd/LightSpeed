@@ -61,11 +61,9 @@ public class CaptchaValidateFilter extends AccessControlFilter
     {
         Object obj = ShiroUtils.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
         String code = String.valueOf(obj != null ? obj : "");
-        if (StringUtils.isEmpty(validateCode) || !validateCode.equalsIgnoreCase(code))
-        {
-            return false;
-        }
-        return true;
+        
+        return StringUtils.isNotBlank(validateCode) && StringUtils.equalsIgnoreCase(validateCode, code);
+        
     }
 
     @Override
