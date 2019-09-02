@@ -11,7 +11,6 @@
     <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
     <link href="../static/css/login.min.css" th:href="@{/css/login.min.css}" rel="stylesheet"/>
     <link href="../static/ruoyi/css/ry-ui.css" th:href="@{/ruoyi/css/ry-ui.css?v=4.0.0}" rel="stylesheet"/>
-  	<script src="../static/js/jquery.i18n.properties.min.js" th:src="@{/js/jquery.i18n.properties.min.js}"></script>
   	
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
@@ -21,37 +20,7 @@
     <script>
         if(window.top!==window.self){window.top.location=window.location};
     </script>
-    <script th:inline="javascript">
-    //获取应用路径
-    var ROOT = [[${#servletContext.contextPath}]];
-
-    //获取默认语言
-    var LANG_COUNTRY = [[${#locale.language+'_'+#locale.country}]];
-
-    //初始化i18n插件
-    $.i18n.properties({
-        path: ROOT + '/i18n/',//这里表示访问路径
-        name: 'messages',//文件名开头
-        language: LANG_COUNTRY,//文件名语言 例如en_US
-        mode: 'map'//默认值
-    });
-
-    //初始化i18n函数
-    function i18n(msgKey) {
-        try {
-            return $.i18n.prop(msgKey);
-        } catch (e) {
-            return msgKey;
-        }
-    }
-
-    //获取国际化翻译值
-    console.log(i18n('user.login.username'));
-    console.log(i18n('user.login.password'));
-    console.log(i18n('user.login.code'));
-    console.log(i18n('user.login.remember'));
-    console.log(i18n('user.login.submit'));
-</script>
+   
 </head>
 
 <body class="signin">
@@ -61,7 +30,7 @@
             <div class="col-sm-7">
                 <div class="signin-info">
                     <div class="logopanel m-b">
-                        <h1><img alt="[若依 ]" src="../static/ruoyi.png" th:src="@{/ruoyi.png}"></h1>
+                        <h1><img alt="[雷克萨斯]" src="../static/lexus.png" th:src="@{/lexus.png}"></h1>
                     </div>
                     <div class="m-b"></div>
                     <h4>欢迎使用<strong>后台管理系统</strong></h4>
@@ -117,5 +86,30 @@
 <script src="../static/ajax/libs/blockUI/jquery.blockUI.js" th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
 <script src="../static/ruoyi/js/ry-ui.js" th:src="@{/ruoyi/js/ry-ui.js?v=4.0.0}"></script>
 <script src="../static/ruoyi/login.js" th:src="@{/ruoyi/login.js}"></script>
+<script src="../static/js/jquery.i18n.properties.min.js" th:src="@{/js/jquery.i18n.properties.min.js}"></script>
+ <script th:inline="javascript">
+    //获取应用路径
+    var ROOT = [[${#servletContext.contextPath}]];
+
+    //获取默认语言
+    var LANG_COUNTRY = [[${#locale.language+'_'+#locale.country}]];
+
+    //初始化i18n插件
+    $.i18n.properties({
+        path: ROOT + '/i18n/',//这里表示访问路径
+        name: 'messages',//文件名开头
+        language: LANG_COUNTRY,//文件名语言 例如en_US
+        mode: 'map'//默认值
+    });
+
+    //初始化i18n函数
+    function i18n(msgKey) {
+        try {
+            return $.i18n.prop(msgKey);
+        } catch (e) {
+            return msgKey;
+        }
+    }
+</script> 	
 </body>
 </html>
