@@ -95,6 +95,7 @@ public class ShiroConfig {
     // 权限认证失败地址
     @Value("${shiro.user.unauthorizedUrl}")
     private String unauthorizedUrl;
+    
 
     /**
      * 缓存管理器 使用Ehcache实现
@@ -105,11 +106,10 @@ public class ShiroConfig {
         EhCacheManager em = new EhCacheManager();
         if (Objects.isNull(cacheManager)) {
             em.setCacheManager(new net.sf.ehcache.CacheManager(getCacheManagerConfigFileInputStream()));
-            return em;
         } else {
-            em.setCacheManager(cacheManager);
-            return em;
+            em.setCacheManager(cacheManager);         
         }
+        return em;
     }
 
     /**
@@ -138,6 +138,7 @@ public class ShiroConfig {
     public UserRealm userRealm(EhCacheManager cacheManager) {
         UserRealm userRealm = new UserRealm();
         userRealm.setCacheManager(cacheManager);
+     
         return userRealm;
     }
 
@@ -221,7 +222,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 身份认证失败，则跳转到登录页面的配置
         shiroFilterFactoryBean.setLoginUrl(loginUrl);
-        // 权限认证失败，则跳转到指定页面
+         // 权限认证失败，则跳转到指定页面
         shiroFilterFactoryBean.setUnauthorizedUrl(unauthorizedUrl);
         // Shiro连接约束配置，即过滤链的定义
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();

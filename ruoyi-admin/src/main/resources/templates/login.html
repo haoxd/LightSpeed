@@ -11,6 +11,8 @@
     <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
     <link href="../static/css/login.min.css" th:href="@{/css/login.min.css}" rel="stylesheet"/>
     <link href="../static/ruoyi/css/ry-ui.css" th:href="@{/ruoyi/css/ry-ui.css?v=4.0.0}" rel="stylesheet"/>
+  	<script src="../static/js/jquery.i18n.properties.min.js" th:src="@{/js/jquery.i18n.properties.min.js}"></script>
+  	
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
@@ -19,6 +21,37 @@
     <script>
         if(window.top!==window.self){window.top.location=window.location};
     </script>
+    <script th:inline="javascript">
+    //获取应用路径
+    var ROOT = [[${#servletContext.contextPath}]];
+
+    //获取默认语言
+    var LANG_COUNTRY = [[${#locale.language+'_'+#locale.country}]];
+
+    //初始化i18n插件
+    $.i18n.properties({
+        path: ROOT + '/i18n/',//这里表示访问路径
+        name: 'messages',//文件名开头
+        language: LANG_COUNTRY,//文件名语言 例如en_US
+        mode: 'map'//默认值
+    });
+
+    //初始化i18n函数
+    function i18n(msgKey) {
+        try {
+            return $.i18n.prop(msgKey);
+        } catch (e) {
+            return msgKey;
+        }
+    }
+
+    //获取国际化翻译值
+    console.log(i18n('user.login.username'));
+    console.log(i18n('user.login.password'));
+    console.log(i18n('user.login.code'));
+    console.log(i18n('user.login.remember'));
+    console.log(i18n('user.login.submit'));
+</script>
 </head>
 
 <body class="signin">
@@ -44,25 +77,27 @@
             </div>
             <div class="col-sm-5">
                 <form id="signupForm">
-                    <h4 class="no-margins">登录：</h4>
-                    <p class="m-t-md">你若不离不弃，我必生死相依</p>
-                    <input type="text"     name="username" class="form-control uname"     placeholder="用户名/手机号/邮箱" value="haoxd"    />
-                    <input type="password" name="password" class="form-control pword"     placeholder="密码"   value="admin123" />
-					<div class="row m-t" th:if="${captchaEnabled==true}">
-						<div class="col-xs-6">
-						    <input type="text" name="validateCode" class="form-control code" placeholder="验证码" maxlength="5" autocomplete="off">
-						</div>
-						<div class="col-xs-6">
-							<a href="javascript:void(0);" title="点击更换验证码">
-								<img th:src="@{captcha/captchaImage(type=${captchaType})}" class="imgcode" width="85%"/>
-							</a>
-						</div>
-					</div>
-                    <div class="checkbox-custom" th:classappend="${captchaEnabled==false} ? 'm-t'">
-				        <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme">记住我</label>
-				    </div>
-                    <button class="btn btn-success btn-block" id="btnSubmit" data-loading="正在验证登录，请稍后...">登录</button>
-                </form>
+    <h4 class="no-margins">登录：</h4>
+    <p class="m-t-md">你若不离不弃，我必生死相依</p>
+    <input type="text"     name="username" class="form-control uname" value="haoxd" th:placeholder="#{user.login.username}"   />
+    <input type="password" name="password" class="form-control pword" value="admin123" th:placeholder="#{user.login.password}"   />
+    <div class="row m-t" th:if="${captchaEnabled==true}">
+        <div class="col-xs-6">
+            <input type="text" name="validateCode" class="form-control code" th:placeholder="#{user.login.code}" maxlength="5" autocomplete="off">
+        </div>
+        <div class="col-xs-6">
+            <a href="javascript:void(0);" title="点击更换验证码">
+                <img th:src="@{captcha/captchaImage(type=${captchaType})}" class="imgcode" width="85%"/>
+            </a>
+        </div>
+    </div>
+    <div class="checkbox-custom" th:classappend="${captchaEnabled==false} ? 'm-t'">
+        <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme" th:text="#{user.login.remember}">记住我</label>
+    </div>
+    <button class="btn btn-success btn-block" id="btnSubmit" data-loading="正在验证登录，请稍后..." th:text="#{user.login.submit}">登录</button>
+    <a href="?lang=zh_CN"> 中文 </a>  
+    <a href="?lang=en_US"> 英语 </a>  
+</form>
             </div>
         </div>
         <div class="signup-footer">
