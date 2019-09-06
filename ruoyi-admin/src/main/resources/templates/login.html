@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     
     <title>登录</title>
-    <meta name="description" content="若依后台管理框架">
+    <meta name="description" content="后台管理框架">
     <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
     <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
@@ -35,19 +35,17 @@
                     <div class="m-b"></div>
                     <h4>欢迎使用<strong>后台管理系统</strong></h4>
                     <ul class="m-b">
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> SpringBoot</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Mybatis</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Shiro</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Thymeleaf</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Bootstrap</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 兼·融之道，自成新境 中大型豪华行政级轿车 新雷克萨斯ES</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 大想法，小执念 全新UX现已上市</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> YET兼·融之道  立于百万 臻于至善</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 雷克萨斯人生电影，向“高而不端着”的人生致敬 </li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 新LS YET兼·融之道 新豪华艺术论</li>
                     </ul>
-                   <!-- <strong>还没有账号？ <a href="#">立即注册&raquo;</a></strong>-->
                 </div>
             </div>
             <div class="col-sm-5">
                 <form id="signupForm">
     <h4 class="no-margins">登录：</h4>
-    <p class="m-t-md">你若不离不弃，我必生死相依</p>
     <input type="text"     name="username" class="form-control uname" value="haoxd" th:placeholder="#{user.login.username}"   />
     <input type="password" name="password" class="form-control pword" value="admin123" th:placeholder="#{user.login.password}"   />
     <div class="row m-t" th:if="${captchaEnabled==true}">
