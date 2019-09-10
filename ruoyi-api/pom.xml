@@ -45,43 +45,15 @@
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 		</dependency>
 		<!--ruoyi 依赖 -->
-		<dependency>
-			<groupId>com.ruoyi</groupId>
-			<artifactId>ruoyi-common</artifactId>
-		</dependency>
-
-		<dependency>
+		 <dependency>
 			<groupId>com.ruoyi</groupId>
 			<artifactId>ruoyi-system</artifactId>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 		</dependency>
-
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-
-		</dependency>
-
-
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>17.0</version>
-		</dependency>
-
-
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-
-		</dependency>
-
 
 	</dependencies>
 
