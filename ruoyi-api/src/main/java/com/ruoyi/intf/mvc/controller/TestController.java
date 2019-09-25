@@ -1,12 +1,5 @@
 package com.ruoyi.intf.mvc.controller;
 
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.google.common.collect.Maps;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.annotation.RepeatSubmit;
@@ -14,6 +7,12 @@ import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.intf.sys.RespInfo;
 import com.ruoyi.system.domain.SysDept;
 import com.ruoyi.system.service.ISysDeptService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/test")
@@ -26,6 +25,7 @@ public class TestController {
 	@Log(title="123")
 	@RepeatSubmit
 	public RespInfo<SysDept> test() {
+
 
 		SysDept a = new SysDept();
 		a.setAncestors("1");
